@@ -5,9 +5,23 @@ import React from 'react';
 function Login() {
   return (
 
-    <div className="App">
-      <h1 className="App-header">Login</h1>
-      <Button variant="contained">Contained</Button>
+    <div>
+      <h1>Login to ePlanner</h1>
+      <form>
+        <label>
+          Email Address:
+          <br />
+          <input type="email" placeholder="Enter Your Email Address" name="email" />
+        </label>{" "}
+        <br /><br />
+        <label>
+          Password:
+          <br /> 
+          <input type="password" placeholder="Enter Your Password" name="password" />
+        </label>{" "}
+        <br /><br />
+      <Button variant="contained">Submit</Button>
+      </form>
     </div>
 
   );
