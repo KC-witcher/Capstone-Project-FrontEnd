@@ -7,7 +7,7 @@ import { TextField } from "@mui/material";
 
 function Login() {
   return (
-    <Stack sx={{ p: 1, maxWidth: 300 }} spacing={3}>
+    <Stack sx={{ p: 1, maxWidth: 350 }} spacing={3}>
       <item>
         <h1>Login to ePlanner</h1>
       </item>
