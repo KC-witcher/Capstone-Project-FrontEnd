@@ -1,29 +1,26 @@
-import '../App.css';
-import Button from '@mui/material/Button';
-import React from 'react';
+import "../App.css";
+import Button from "@mui/material/Button";
+import React from "react";
+import Stack from "@mui/material/Stack";
+import Input from "@mui/material/Input";
+import { TextField } from "@mui/material";
 
 function Login() {
   return (
-
-    <div>
-      <h1>Login to ePlanner</h1>
-      <form>
-        <label>
-          Email Address:
-          <br />
-          <input type="email" placeholder="Enter Your Email Address" name="email" />
-        </label>{" "}
-        <br /><br />
-        <label>
-          Password:
-          <br /> 
-          <input type="password" placeholder="Enter Your Password" name="password" />
-        </label>{" "}
-        <br /><br />
-      <Button variant="contained">Submit</Button>
-      </form>
-    </div>
-
+    <Stack sx={{ p: 1, maxWidth: 300 }} spacing={3}>
+      <item>
+        <h1>Login to ePlanner</h1>
+      </item>
+      <item>
+        <TextField id="Email" label="Email Address" type="email" fullWidth />
+      </item>
+      <item>
+        <TextField id="Password" label="Password" type="password" fullWidth />
+      </item>
+      <item>
+        <Button variant="contained">Submit</Button>
+      </item>
+    </Stack>
   );
 }
 
