@@ -1,6 +1,12 @@
 /* Changes all pages importing this CSS file to this background color.*/
 body {
-  background-color: white;
+  background-color: whitesmoke;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
