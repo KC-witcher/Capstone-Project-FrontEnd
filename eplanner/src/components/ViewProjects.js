@@ -32,6 +32,7 @@ function ViewProjects() {
                             </IconButton>
                         </span>
                     ))}
+                    <p style={{ color: "gray" }}>End of List</p>
                 </Stack>
             </Stack>
         </Stack>
