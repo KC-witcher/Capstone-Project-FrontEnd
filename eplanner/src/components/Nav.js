@@ -30,7 +30,7 @@ function getPage() {
 
 function Nav() {
   return (
-    <List sx={{ maxWidth: 300, height: "100vh", p: 3, borderRight: 2, borderColor: "gray" }}>
+    <List sx={{ maxWidth: 300, height: "300vh", p: 3, borderRight: 2, borderColor: "gray" }}>
       <Link to="/home" style={{ textDecoration: "none", color: "black" }}>
         <ListItem sx={{ pb: 2 }}>
           <ListItemButton>
