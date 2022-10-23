@@ -4,6 +4,8 @@ import Stack from "@mui/material/Stack";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 
+//After signing up and clicking submit, do we want to go directly to the home page?
+//Or do we want to ask the user to sign in using their new credentials (go to sign in page)?
 function SignUp() {
   return (
     <Stack sx={{ p: 3, maxWidth: 350 }} spacing={3}>

@@ -5,8 +5,9 @@ import CreateProject from "./CreateProject";
 import EditInfo from "./EditInfo";
 import View from "./ViewProjects";
 import ScheduleGen from "./ScheduleGen";
-import ScheduleConfirm from "./ScheduleConfirm";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+//Deleted the Schedule Confirm component since I used a dialog (pop up) instead.
 
 function App() {
     return (
@@ -19,7 +20,6 @@ function App() {
                 <Route exact path="/create" element={<CreateProject/>}/>
                 <Route exact path="/edit" element={<EditInfo/>}/>
                 <Route exact path="/schedule" element={<ScheduleGen/>}/>
-                <Route exact path="/confirm" element={<ScheduleConfirm/>}/>
             </Routes>
         </Router>
     )
