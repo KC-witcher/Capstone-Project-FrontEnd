@@ -13,7 +13,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { fontWeight } from '@mui/system';
+import { Link } from 'react-router-dom';
 
 
 // Provided by Juna
@@ -114,8 +114,6 @@ function CreateProject() {
         setMotivation(event.target.value);
     };
 
-    console.log(onBest);
-
     /* Once we have the project type, we fill in extra information based on what Juna provided.*/
     /* Conditional statements to assign value to projectLength and projectTime, plus minCompletion if applicable.*/
     if (projectType === 'Research Paper' || projectType === 'Argument Paper' || projectType === 'Exploratory Paper' || projectType === 'Reflective Paper'
@@ -150,10 +148,14 @@ function CreateProject() {
         projectTime = -1;
     }
 
-    /* console.log(projectLength); */
-    /* console.log(projectTime); */
-
     /* Once we have Start Date and End Date, we can determine the number of weeks the project will be. */
+    var startDateTime = new Date(startDate);
+    var endDateTime = new Date(endDate);
+    var time = Math.abs(endDateTime.getTime() - startDateTime.getTime());
+    /* Amount of time between two given dates, rounded up, in weeks. */
+    time = Math.ceil(time / (1000 * 3600 * 24 * 7));
+
+    console.log(time);
 
     return (
         <Stack direction="row" spacing={3}>
@@ -327,7 +329,7 @@ function CreateProject() {
                 <Box>
                     <h2>Select Your Motivation Level for This Project</h2>
                 </Box>
-                <Box sx={{ pb: 3, borderBottom: 1, borderColor: "lightgray" }}>
+                <Box sx={{ pb: 3 }}>
                     <FormControl fullWidth>
                         <InputLabel id="motivation-level-label">Motivation</InputLabel>
                         <Select
@@ -348,9 +350,11 @@ function CreateProject() {
                                 Low Motivation / Don't Want to Do It
                             </MenuItem>
                         </Select>
-                        <br />
                     </FormControl>
                 </Box>
+                <Link to="/schedule" style={{ textDecoration: "none" }}>
+                    <Button variant="contained" size="large">Submit</Button>
+                </Link>
             </Stack>
         </Stack >
     );

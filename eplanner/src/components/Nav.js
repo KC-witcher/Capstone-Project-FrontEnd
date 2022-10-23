@@ -6,34 +6,43 @@ import ListItem from '@mui/joy/ListItem';
 import ListItemDecorator from '@mui/joy/ListItemDecorator';
 import ListItemButton from '@mui/joy/ListItemButton';
 
-function getPage() {
-  var pathname = window.location.href;
-
-  switch (pathname) {
-    case "/home":
-      console.log("home");
-      break;
-    case "/view":
-      console.log("view");
-      break;
-    case "/create":
-      console.log("create");
-      break;
-    case "/edit":
-      console.log("edit");
-      break;
-    default:
-      console.log("error");
-      break;
-  }
-}
-
 function Nav() {
+
+  // Serves the purpose of bolding the navigation item of the page the user is currently on.
+  var homeSelected = false;
+  var viewSelected = false;
+  var createSelected = false;
+  var editSelected = false;
+
+  if (window.location.pathname === "/home") {
+    homeSelected = true;
+  } else {
+    homeSelected = false;
+  }
+
+  if (window.location.pathname === "/view") {
+    viewSelected = true;
+  } else {
+    viewSelected = false;
+  }
+
+  if (window.location.pathname === "/create") {
+    createSelected = true;
+  } else {
+    createSelected = false;
+  }
+
+  if (window.location.pathname === "/edit") {
+    editSelected = true;
+  } else {
+    editSelected = false;
+  }
+
   return (
-    <List sx={{ maxWidth: 300, height: "300vh", p: 3, borderRight: 2, borderColor: "gray" }}>
+    <List sx={{ maxWidth: 300, height: "250vh", p: 3, borderRight: 2, borderColor: "gray" }}>
       <Link to="/home" style={{ textDecoration: "none", color: "black" }}>
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton>
+          <ListItemButton selected={homeSelected}>
             <ListItemDecorator>
               🏠
             </ListItemDecorator>
@@ -43,7 +52,7 @@ function Nav() {
       </Link>
       <Link to="/view" style={{ textDecoration: "none", color: "black" }}>
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton>
+          <ListItemButton selected={viewSelected}>
             <ListItemDecorator>
               📚
             </ListItemDecorator>
@@ -53,7 +62,7 @@ function Nav() {
       </Link>
       <Link to="/create" style={{ textDecoration: "none", color: "black" }}>
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton>
+          <ListItemButton selected={createSelected}>
             <ListItemDecorator>
               🧾
             </ListItemDecorator>
@@ -63,7 +72,7 @@ function Nav() {
       </Link>
       <Link to="/edit" style={{ textDecoration: "none", color: "black" }}>
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton>
+          <ListItemButton selected={editSelected}>
             <ListItemDecorator>
               ✏️
             </ListItemDecorator>
