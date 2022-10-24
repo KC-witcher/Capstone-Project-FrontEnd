@@ -11,7 +11,7 @@ const projects = ['Project 1', 'Project 2', 'Project 3', 'Project 4', 'Project 5
 
 function ViewProjects() {
     return (
-        <Stack direction="row" spacing={3}>
+        <Stack direction="row" spacing={3} sx={{ height: "100vh" }}>
             <Nav></Nav>
             <Stack spacing={2} sx={{ width: "100%", pr: 3 }}>
                 <Box sx={{ pt: 3, borderBottom: 2, borderColor: "lightgray", ml: -3, mr: -3, pl: 3, pr: 3 }}>
