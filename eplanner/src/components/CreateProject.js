@@ -120,10 +120,12 @@ function CreateProject() {
         || projectType === 'Persuasive Essay' || projectType === 'Analytical Paper' || projectType === 'Argumentative Essay') {
         projectLength = 10;
         projectTime = 20;
+        minCompletion = 2;
     } else if (projectType === 'Research Report' || projectType === 'Executive/Business Report' || projectType === 'Summary Report'
         || projectType === 'Scientific Report' || projectType === 'Technical Report' || projectType === 'Evaluation Report') {
         projectLength = 5;
         projectTime = 10;
+        minCompletion = 1;
     } else if (projectType === 'Thesis') {
         projectLength = 50;
         projectTime = 100;
@@ -355,6 +357,8 @@ function CreateProject() {
                 <Link to="/schedule" style={{ textDecoration: "none" }}>
                     <Button variant="contained" size="large">Submit</Button>
                 </Link>
+                <br />
+                <br />
             </Stack>
         </Stack >
     );
