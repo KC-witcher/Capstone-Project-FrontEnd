@@ -60,7 +60,9 @@ function SignUp() {
            }} fullWidth />
       </item>
       <item>
+      <Link to="/" style={{ textDecoration: "none" }}>
         <Button variant="contained" disabled={email === "" || password === "" || password !== passwordAgain || fName === "" || lName === ""} onClick={signUp}>Submit</Button>
+        </Link>
         <Link to="/" style={{ textDecoration: "none" }}>
           <Button sx={{ ml: 3 }} variant="outlined">Return to Login</Button>
         </Link>
