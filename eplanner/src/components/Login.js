@@ -18,8 +18,10 @@ function Login() {
     }).then((response) => {
        if (!response.data.message) {
           setLoginStatus(response.data.message);
+          console.log({loginStatus});
        } else {
           setLoginStatus (response.data[0].message);
+          console.log({loginStatus});
        }
     });
     };
@@ -46,7 +48,6 @@ function Login() {
         <Link to="/signup" style={{ textDecoration: "none" }}>
           <Button sx={{ ml: 3 }} variant="outlined">Sign Up</Button>
         </Link>
-        <h1>{loginStatus}</h1>
       </item>
     </Stack>
   );
