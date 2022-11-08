@@ -214,9 +214,10 @@ function CreateProject() {
     // Total time required to complete project divided by minimum amount of time required in weeks, rounded up.
     var hoursPerWeek = Math.ceil(projectTime / minCompletion);
 
-    console.log(time);
-
     const selectWorkPattern = () => {
+        console.log("Weeks required to complete project: " + time);
+        console.log("Hours per week required to complete project: " + hoursPerWeekIdeal);
+
         if (time <= 0) {
             /* Stopgap implementation. Error handling in the future should prevent this beforehand. */
             console.log("Error, project duration in weeks is zero or negative.");
@@ -289,26 +290,31 @@ function CreateProject() {
         if (hoursPerWeekIdeal <= 2) {
             // Calls function to handle the simple case of 2 hours per week.
             setOptionsWithHoursPerWeekLessThanEqualToTwo();
+            console.log("Distributing for 2 hours per week...");
 
             // If time required to complete is 4 hours per week or less...
         } else if (hoursPerWeek <= 4) {
             // Calls function to handle the simple-ish case of 4 hours per week.
             setOptionsWithHoursPerWeekLessThanEqualToFour();
+            console.log("Distributing for 4 hours per week...");
 
             // If time required to complete is 5 hours per week or less...
         } else if (hoursPerWeekIdeal <= 5) {
             // Calls function to handle the mild case of 5 hours per week.
             setOptionsWithHoursPerWeekLessThanEqualToFive();
+            console.log("Distributing for 5 hours per week...");
 
             // If time required to complete is 8 hours per week or less...
         } else if (hoursPerWeek <= 8) {
             // Calls function to handle the milder case of 8 hours per week.
             setOptionsWithHoursPerWeekLessThanEqualToEight();
+            console.log("Distributing for 8 hours per week...");
 
             // If time required to complete is 10 hours per week or less...
         } else if (hoursPerWeekIdeal <= 10) {
             // Calls function to handle the extreme case of 10 hours per week. Hardcore!
             setOptionsWithHoursPerWeekLessThanEqualToTen();
+            console.log("Distributing for 10 hours per week...");
 
             // Hours Per Week should never be greater than 10.
         } else {
@@ -325,7 +331,7 @@ function CreateProject() {
         console.log(optionThree);
         console.log(optionFour);
 
-        // readSchedules();
+        readSchedules();
     };
 
     // Handles setting hours for schedule options if the total number of hours per week derived from user input is <= 2.
@@ -1661,290 +1667,216 @@ function CreateProject() {
         };
     }
 
-    /*
     const readSchedules = () => {
-        // Variable used to iterate over each schedule option.
-        var day = 0;
+        // Max number of days in the outer option array.
+        const optionDayLength = 7;
+        // Max number of hour blocks in the inner option array.
+        const optionHourLength = 16;
 
-        // Variables used to pring out the schedule options in string format.
+        // Used to iterate over each schedule option.
+        var day = 0;
+        var hour = 0;
+
+        var daysTable = ["\nSunday:\n", "\nMonday:\n", "\nTuesday:\n", "\nWednesday:\n", "\nThursday:\n", "\nFriday:\n", "\nSaturday:\n"];
+
+        var hoursTable = ["8 AM - 9 AM,  ", "9 AM - 10 AM,  ", "10 AM - 11 AM,  ", "11 AM - 12 PM,  ", "12 PM - 1 PM,  ", "1 PM - 2 PM,  ", "2 PM - 3 PM,  ", "3 PM - 4 PM,  ",
+            "4 PM - 5 PM,  ", "5 PM - 6 PM,  ", "6 PM - 7 PM,  ", "7 PM - 8 PM,  ", "8 PM - 9 PM,  ", "9 PM - 10 PM,  ", "10 PM - 11 PM,  ", "11 PM - 12 AM,  "];
+
+        // Variables used to print out the schedule options in string format.
         var outputOne = "";
         var outputTwo = "";
         var outputThree = "";
         var outputFour = "";
 
-        // Variable used to determine if a given day has active hours.
-        var activeHoursFlag = false;
+        // Used to determine if the current day has been added to the output string.
+        var dayAdded = false;
 
-        // Variable used to check current output against previous output.
-        var previousOutput = "";
+        // Used to determine if a given day has hours present.
+        var activeHours = false;
 
-        // Increment over every day in each schedule option outer array.
-        for (day = 0; day < 7; day++) {
-
-            // Reset active hours for next day.
-            activeHoursFlag = false;
-
-            // Check to see which hours are flagged as true for a given day.
-            outputOne = outputOne + optionOne[day][0] ? "8 AM - 9 AM,  " : "";
-            outputOne = outputOne + optionOne[day][1] ? "9 AM - 10 AM,  " : "";
-            outputOne = outputOne + optionOne[day][2] ? "10 AM - 11 AM,  " : "";
-            outputOne = outputOne + optionOne[day][3] ? "11 AM - 12 PM,  " : "";
-            outputOne = outputOne + optionOne[day][4] ? "12 PM - 1 PM,  " : "";
-            outputOne = outputOne + optionOne[day][5] ? "1 PM - 2 PM,  " : "";
-            outputOne = outputOne + optionOne[day][6] ? "2 PM - 3 PM,  " : "";
-            outputOne = outputOne + optionOne[day][7] ? "3 PM - 4 PM,  " : "";
-            outputOne = outputOne + optionOne[day][8] ? "4 PM - 5 PM,  " : "";
-            outputOne = outputOne + optionOne[day][9] ? "5 PM - 6 PM,  " : "";
-            outputOne = outputOne + optionOne[day][10] ? "6 PM - 7 PM,  " : "";
-            outputOne = outputOne + optionOne[day][11] ? "7 PM - 8 PM,  " : "";
-            outputOne = outputOne + optionOne[day][12] ? "8 PM - 9 PM,  " : "";
-            outputOne = outputOne + optionOne[day][13] ? "9 PM - 10 PM,  " : "";
-            outputOne = outputOne + optionOne[day][14] ? "10 PM - 11 PM,  " : "";
-            outputOne = outputOne + optionOne[day][14] ? "11 PM - 12 AM,  " : "";
-
-            if (outputOne.length > previousOutput.length) {
-                activeHoursFlag = true;
-                // Get rid of last 3 characters, which are [comma][space][space] if option<Num>.length > 0.
-                outputOne = outputOne.substring(0, optionOne.length - 3);
-            } else {
-                activeHoursFlag = false;
+        for (day = 0; day < optionDayLength; day++) {
+            // If previous day had active hours, shave off the comma, space, space at the end.
+            if (activeHours) {
+                outputOne = outputOne.substring(0, outputOne.length - 3);
             };
 
-            // Determine day based on current loop number.
-            if (activeHoursFlag && day === 0) {
-                outputOne = "Sunday:\n" + outputOne;
-            } else if (activeHoursFlag && day === 1) {
-                outputOne = "Monday:\n" + outputOne;
-            } else if (activeHoursFlag && day === 2) {
-                outputOne = "Tuesday:\n" + outputOne;
-            } else if (activeHoursFlag && day === 3) {
-                outputOne = "Wednesday:\n" + outputOne;
-            } else if (activeHoursFlag && day === 4) {
-                outputOne = "Thursday:\n" + outputOne;
-            } else if (activeHoursFlag && day === 5) {
-                outputOne = "Friday:\n" + outputOne;
-            } else {
-                outputOne = "Saturday:\n" + outputOne;
-            };
+            // Reset active hours to prepare for the new day's hours.
+            activeHours = false;
 
-            // Add two newlines to separate days if there are active hours and it is not the initial loop.
-            if (activeHoursFlag && day > 0) {
-                outputOne = outputOne + "\n\n";
-            };
+            // Reset flag for determining if day has been added to the output string.
+            dayAdded = false;
 
-            // Store previous output to see if hours were added in the next day.
-            previousOutput = outputOne;
+            for (hour = 0; hour < optionHourLength; hour++) {
+                // If the current hour of the current day is true in the option array...
+                if (optionOne[day][hour]) {
+                    // Indicate that there are hours present in this day.
+                    activeHours = true;
+
+                    if (!dayAdded) {
+                        // Add the active day to the output.
+                        outputOne = outputOne + daysTable[day];
+                        // Add the active hour to the output.
+                        outputOne = outputOne + hoursTable[hour];
+                        dayAdded = true;
+                    } else {
+                        // Only add the active hour to the output.
+                        outputOne = outputOne + hoursTable[hour];
+                    };
+                };
+            };
         };
 
-        // Check first output in console.
-        console.log(outputOne);
+        console.log("\n[First Output]\n" + outputOne);
 
-        // Reset active hours flag for next option.
-        activeHoursFlag = false;
+        // Reset these before repeating for the next option array.
+        dayAdded = false;
+        activeHours = false;
 
-        // Reset previous output for next option.
-        previousOutput = "";
-
-        // Increment over every day in each schedule option outer array.
-        for (day = 0; day < 7; day++) {
-
-            // Reset active hours for next day.
-            activeHoursFlag = false;
-
-            // Check to see which hours are flagged as true for a given day.
-            outputTwo = outputTwo + optionTwo[day][0] ? "8 AM - 9 AM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][1] ? "9 AM - 10 AM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][2] ? "10 AM - 11 AM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][3] ? "11 AM - 12 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][4] ? "12 PM - 1 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][5] ? "1 PM - 2 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][6] ? "2 PM - 3 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][7] ? "3 PM - 4 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][8] ? "4 PM - 5 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][9] ? "5 PM - 6 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][10] ? "6 PM - 7 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][11] ? "7 PM - 8 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][12] ? "8 PM - 9 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][13] ? "9 PM - 10 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][14] ? "10 PM - 11 PM,  " : "";
-            outputTwo = outputTwo + optionTwo[day][14] ? "11 PM - 12 AM,  " : "";
-
-            if (outputTwo.length > previousOutput.length) {
-                activeHoursFlag = true;
-                // Get rid of last 3 characters, which are [comma][space][space] if option<Num>.length > 0.
-                outputTwo = outputTwo.substring(0, optionTwo.length - 3);
-            } else {
-                activeHoursFlag = false;
+        for (day = 0; day < optionDayLength; day++) {
+            // If previous day had active hours, shave off the comma, space, space at the end.
+            if (activeHours) {
+                outputTwo = outputTwo.substring(0, outputTwo.length - 3);
             };
 
+            // Reset active hours to prepare for the new day's hours.
+            activeHours = false;
 
-            // Determine day based on current loop number.
-            if (activeHoursFlag && day === 0) {
-                outputTwo = "Sunday:\n" + outputTwo;
-            } else if (activeHoursFlag && day === 1) {
-                outputTwo = "Monday:\n" + outputTwo;
-            } else if (activeHoursFlag && day === 2) {
-                outputTwo = "Tuesday:\n" + outputTwo;
-            } else if (activeHoursFlag && day === 3) {
-                outputTwo = "Wednesday:\n" + outputTwo;
-            } else if (activeHoursFlag && day === 4) {
-                outputTwo = "Thursday:\n" + outputTwo;
-            } else if (activeHoursFlag && day === 5) {
-                outputTwo = "Friday:\n" + outputTwo;
-            } else {
-                outputTwo = "Saturday:\n" + outputTwo;
+            // Reset flag for determining if day has been added to the output string.
+            dayAdded = false;
+
+            for (hour = 0; hour < optionHourLength; hour++) {
+                // If the current hour of the current day is true in the option array...
+                if (optionTwo[day][hour]) {
+                    // Indicate that there are hours present in this day.
+                    activeHours = true;
+
+                    if (!dayAdded) {
+                        // Add the active day to the output.
+                        outputTwo = outputTwo + daysTable[day];
+                        // Add the active hour to the output.
+                        outputTwo = outputTwo + hoursTable[hour];
+                        dayAdded = true;
+                    } else {
+                        // Only add the active hour to the output.
+                        outputTwo = outputTwo + hoursTable[hour];
+                    };
+                };
             };
-
-            // Add two newlines to separate days if there are active hours and it is not the initial loop.
-            if (activeHoursFlag && day > 0) {
-                outputTwo = outputTwo + "\n\n";
-            };
-
-            // Store previous output to see if hours were added in the next day.
-            previousOutput = outputTwo;
-
         };
 
-        // Check second output in console.
-        console.log(outputTwo);
+        console.log("\n[Second Output]\n" + outputTwo);
 
-        // Reset active hours flag for next option.
-        activeHoursFlag = false;
+        // Reset these before repeating for the next option array.
+        dayAdded = false;
+        activeHours = false;
 
-        // Reset previous output for next option.
-        previousOutput = "";
-
-        // Increment over every day in each schedule option outer array.
-        for (day = 0; day < 7; day++) {
-
-            // Reset active hours for next day.
-            activeHoursFlag = false;
-
-            // Check to see which hours are flagged as true for a given day.
-            outputThree = outputThree + optionThree[day][0] ? "8 AM - 9 AM,  " : "";
-            outputThree = outputThree + optionThree[day][1] ? "9 AM - 10 AM,  " : "";
-            outputThree = outputThree + optionThree[day][2] ? "10 AM - 11 AM,  " : "";
-            outputThree = outputThree + optionThree[day][3] ? "11 AM - 12 PM,  " : "";
-            outputThree = outputThree + optionThree[day][4] ? "12 PM - 1 PM,  " : "";
-            outputThree = outputThree + optionThree[day][5] ? "1 PM - 2 PM,  " : "";
-            outputThree = outputThree + optionThree[day][6] ? "2 PM - 3 PM,  " : "";
-            outputThree = outputThree + optionThree[day][7] ? "3 PM - 4 PM,  " : "";
-            outputThree = outputThree + optionThree[day][8] ? "4 PM - 5 PM,  " : "";
-            outputThree = outputThree + optionThree[day][9] ? "5 PM - 6 PM,  " : "";
-            outputThree = outputThree + optionThree[day][10] ? "6 PM - 7 PM,  " : "";
-            outputThree = outputThree + optionThree[day][11] ? "7 PM - 8 PM,  " : "";
-            outputThree = outputThree + optionThree[day][12] ? "8 PM - 9 PM,  " : "";
-            outputThree = outputThree + optionThree[day][13] ? "9 PM - 10 PM,  " : "";
-            outputThree = outputThree + optionThree[day][14] ? "10 PM - 11 PM,  " : "";
-            outputThree = outputThree + optionThree[day][14] ? "11 PM - 12 AM,  " : "";
-
-            if (outputThree.length > previousOutput.length) {
-                activeHoursFlag = true;
-                // Get rid of last 3 characters, which are [comma][space][space] if option<Num>.length > 0.
-                outputThree = outputThree.substring(0, optionThree.length - 3);
-            } else {
-                activeHoursFlag = false;
+        for (day = 0; day < optionDayLength; day++) {
+            // If previous day had active hours, shave off the comma, space, space at the end.
+            if (activeHours) {
+                outputThree = outputThree.substring(0, outputThree.length - 3);
             };
 
-            // Determine day based on current loop number.
-            if (activeHoursFlag && day === 0) {
-                outputThree = "Sunday:\n" + outputThree;
-            } else if (activeHoursFlag && day === 1) {
-                outputThree = "Monday:\n" + outputThree;
-            } else if (activeHoursFlag && day === 2) {
-                outputThree = "Tuesday:\n" + outputThree;
-            } else if (activeHoursFlag && day === 3) {
-                outputThree = "Wednesday:\n" + outputThree;
-            } else if (activeHoursFlag && day === 4) {
-                outputThree = "Thursday:\n" + outputThree;
-            } else if (activeHoursFlag && day === 5) {
-                outputThree = "Friday:\n" + outputThree;
-            } else {
-                outputThree = "Saturday:\n" + outputThree;
+            // Reset active hours to prepare for the new day's hours.
+            activeHours = false;
+
+            // Reset flag for determining if day has been added to the output string.
+            dayAdded = false;
+
+            for (hour = 0; hour < optionHourLength; hour++) {
+                // If the current hour of the current day is true in the option array...
+                if (optionThree[day][hour]) {
+                    // Indicate that there are hours present in this day.
+                    activeHours = true;
+
+                    if (!dayAdded) {
+                        // Add the active day to the output.
+                        outputThree = outputThree + daysTable[day];
+                        // Add the active hour to the output.
+                        outputThree = outputThree + hoursTable[hour];
+                        dayAdded = true;
+                    } else {
+                        // Only add the active hour to the output.
+                        outputThree = outputThree + hoursTable[hour];
+                    };
+                };
             };
-
-            // Add two newlines to separate days if there are active hours and it is not the initial loop.
-            if (activeHoursFlag && day > 0) {
-                outputThree = outputThree + "\n\n";
-            };
-
-            // Store previous output to see if hours were added in the next day.
-            previousOutput = outputThree;
-
         };
 
-        // Check second output in console.
-        console.log(outputThree);
+        console.log("\n[Third Output]\n" + outputThree);
 
-        // Reset active hours flag for next option.
-        activeHoursFlag = false;
+        // Reset these before repeating for the next option array.
+        dayAdded = false;
+        activeHours = false;
 
-        // Reset previous output for next option.
-        previousOutput = "";
-
-        // Increment over every day in each schedule option outer array.
-        for (day = 0; day < 7; day++) {
-
-            // Reset active hours for next day.
-            activeHoursFlag = false;
-
-            // Check to see which hours are flagged as true for a given day.
-            outputFour = outputFour + optionFour[day][0] ? "8 AM - 9 AM,  " : "";
-            outputFour = outputFour + optionFour[day][1] ? "9 AM - 10 AM,  " : "";
-            outputFour = outputFour + optionFour[day][2] ? "10 AM - 11 AM,  " : "";
-            outputFour = outputFour + optionFour[day][3] ? "11 AM - 12 PM,  " : "";
-            outputFour = outputFour + optionFour[day][4] ? "12 PM - 1 PM,  " : "";
-            outputFour = outputFour + optionFour[day][5] ? "1 PM - 2 PM,  " : "";
-            outputFour = outputFour + optionFour[day][6] ? "2 PM - 3 PM,  " : "";
-            outputFour = outputFour + optionFour[day][7] ? "3 PM - 4 PM,  " : "";
-            outputFour = outputFour + optionFour[day][8] ? "4 PM - 5 PM,  " : "";
-            outputFour = outputFour + optionFour[day][9] ? "5 PM - 6 PM,  " : "";
-            outputFour = outputFour + optionFour[day][10] ? "6 PM - 7 PM,  " : "";
-            outputFour = outputFour + optionFour[day][11] ? "7 PM - 8 PM,  " : "";
-            outputFour = outputFour + optionFour[day][12] ? "8 PM - 9 PM,  " : "";
-            outputFour = outputFour + optionFour[day][13] ? "9 PM - 10 PM,  " : "";
-            outputFour = outputFour + optionFour[day][14] ? "10 PM - 11 PM,  " : "";
-            outputFour = outputFour + optionFour[day][14] ? "11 PM - 12 AM,  " : "";
-
-            if (outputFour.length > previousOutput.length) {
-                activeHoursFlag = true;
-                // Get rid of last 3 characters, which are [comma][space][space] if option<Num>.length > 0.
-                outputFour = outputFour.substring(0, optionFour.length - 3);
-            } else {
-                activeHoursFlag = false;
+        for (day = 0; day < optionDayLength; day++) {
+            // If previous day had active hours, shave off the comma, space, space at the end.
+            if (activeHours) {
+                outputFour = outputFour.substring(0, outputFour.length - 3);
             };
 
-            // Determine day based on current loop number.
-            if (activeHoursFlag && day === 0) {
-                outputFour = "Sunday:\n" + outputFour;
-            } else if (activeHoursFlag && day === 1) {
-                outputFour = "Monday:\n" + outputFour;
-            } else if (activeHoursFlag && day === 2) {
-                outputFour = "Tuesday:\n" + outputFour;
-            } else if (activeHoursFlag && day === 3) {
-                outputFour = "Wednesday:\n" + outputFour;
-            } else if (activeHoursFlag && day === 4) {
-                outputFour = "Thursday:\n" + outputFour;
-            } else if (activeHoursFlag && day === 5) {
-                outputFour = "Friday:\n" + outputFour;
-            } else {
-                outputFour = "Saturday:\n" + outputFour;
+            // Reset active hours to prepare for the new day's hours.
+            activeHours = false;
+
+            // Reset flag for determining if day has been added to the output string.
+            dayAdded = false;
+
+            for (hour = 0; hour < optionHourLength; hour++) {
+                // If the current hour of the current day is true in the option array...
+                if (optionFour[day][hour]) {
+                    // Indicate that there are hours present in this day.
+                    activeHours = true;
+
+                    if (!dayAdded) {
+                        // Add the active day to the output.
+                        outputFour = outputFour + daysTable[day];
+                        // Add the active hour to the output.
+                        outputFour = outputFour + hoursTable[hour];
+                        dayAdded = true;
+                    } else {
+                        // Only add the active hour to the output.
+                        outputFour = outputFour + hoursTable[hour];
+                    };
+                };
             };
-
-            // Add two newlines to separate days if there are active hours and it is not the initial loop.
-            if (activeHoursFlag && day > 0) {
-                outputFour = outputFour + "\n\n";
-            };
-
-            // Store previous output to see if hours were added in the next day.
-            previousOutput = outputFour;
-
         };
 
-        // Check second output in console.
-        console.log(outputFour);
+        console.log("\n[Fourth Output]\n" + outputFour);
     }
-    */
+
+    // Resets all options so that if the user goes back without reloading the page, the options are regenerated from scratch.
+    const flushOptions = () => {
+        optionOne = [[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]];
+
+        optionTwo = [[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]];
+
+        optionThree = [[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]];
+
+        optionFour = [[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]];
+    }
 
     /* README: IMPORTANT
 
@@ -1962,7 +1894,7 @@ function CreateProject() {
                     <br />
                 </Box>
                 <Box>
-                    <h2>Select Project Type</h2>
+                    <h2 onLoad={flushOptions()}>Select Project Type</h2>
                 </Box>
                 <Box sx={{ pb: 3, borderBottom: 1, borderColor: "lightgray" }}>
                     <FormControl fullWidth>
