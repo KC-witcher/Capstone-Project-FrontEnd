@@ -13,6 +13,12 @@ h1 {
   margin: 0;
 }
 
+.error {
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
 .App {
   text-align: center;
 }

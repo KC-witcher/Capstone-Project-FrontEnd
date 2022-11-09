@@ -191,6 +191,7 @@ function CreateProject() {
     } else if (projectType === 'Case Study') {
         projectLength = 5;
         projectTime = 10;
+        minCompletion = 1;
     } else if (projectType === 'Term Project') {
         projectLength = 50;
         projectTime = 200;
@@ -1726,6 +1727,12 @@ function CreateProject() {
             };
         };
 
+        // If previous day had active hours, shave off the comma, space, space at the end.
+        if (activeHours) {
+            outputOne = outputOne.substring(0, outputOne.length - 3);
+        };
+
+
         console.log("\n[First Output]\n" + outputOne);
 
         // Reset these before repeating for the next option array.
@@ -1764,6 +1771,12 @@ function CreateProject() {
             };
         };
 
+        // If previous day had active hours, shave off the comma, space, space at the end.
+        if (activeHours) {
+            outputTwo = outputTwo.substring(0, outputTwo.length - 3);
+        };
+
+
         console.log("\n[Second Output]\n" + outputTwo);
 
         // Reset these before repeating for the next option array.
@@ -1800,6 +1813,11 @@ function CreateProject() {
                     };
                 };
             };
+        };
+
+        // If previous day had active hours, shave off the comma, space, space at the end.
+        if (activeHours) {
+            outputThree = outputThree.substring(0, outputThree.length - 3);
         };
 
         console.log("\n[Third Output]\n" + outputThree);
@@ -1840,6 +1858,11 @@ function CreateProject() {
             };
         };
 
+        // If previous day had active hours, shave off the comma, space, space at the end.
+        if (activeHours) {
+            outputFour = outputFour.substring(0, outputFour.length - 3);
+        };
+
         console.log("\n[Fourth Output]\n" + outputFour);
     }
 
@@ -1877,6 +1900,21 @@ function CreateProject() {
         [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]];
     }
+
+    /* Error Handling Block */
+    const today = new Date().getDate();
+
+    // If chosen start date is before today, prompt user to choose a different start date.
+    const startDateError = today > startDateTime.getDate() + 1;
+
+    // If chosen end date is before the start date, prompt user to choose a different end date.
+    const endDateError = startDateTime.getDate() > endDateTime.getDate();
+
+    // If chosen dates do not round up to the minimum amount of weeks required to complete the project, throw an error.
+    const tooShortError = time < minCompletion;
+
+    // Disables React Link routing below if there are errors.
+    const linkDisabler = (startDateError || endDateError || tooShortError) ? {pointerEvents: "none"} : {pointerEvents: ""};
 
     /* README: IMPORTANT
 
@@ -2046,12 +2084,34 @@ function CreateProject() {
                     <h2>Select Project Dates</h2>
                 </Box>
                 <Box sx={{ pb: 3, borderBottom: 1, borderColor: "lightgray", maxWidth: 350 }}>
-                    <TextField InputLabelProps={{ shrink: true }} onChange={handleStartDateUpdate} value={startDate} id="startDate" label="Starting Date" type="date" placeholder="Enter the Start Date of the Project" fullWidth />
+                    <TextField
+                        InputLabelProps={{ shrink: true }}
+                        onChange={handleStartDateUpdate}
+                        value={startDate}
+                        id="startDate"
+                        label="Starting Date"
+                        type="date"
+                        placeholder="Enter the Start Date of the Project"
+                        fullWidth
+                        error={startDateError}
+                        helperText={startDateError ? "Select a date after today's date." : ""}
+                    />
                     <br />
                     <br />
-                    <TextField InputLabelProps={{ shrink: true }} onChange={handleEndDateUpdate} value={endDate} id="endDate" label="Ending Date" type="date" placeholder="Enter the End Date of the Project" fullWidth />
+                    <TextField
+                        InputLabelProps={{ shrink: true }}
+                        onChange={handleEndDateUpdate} value={endDate}
+                        id="endDate"
+                        label="Ending Date"
+                        type="date"
+                        placeholder="Enter the End Date of the Project"
+                        fullWidth
+                        error={endDateError}
+                        helperText={endDateError ? "Select a date after your chosen start date." : ""}
+                    />
                     <br />
                     <br />
+                    {(tooShortError) ? <div className="error">Your selected project type requires {minCompletion} week(s) to complete. Please choose dates that are farther apart. <br /><br /></div> : <></>}
                     <TextField multiline rows={10} onChange={handleGoalUpdate} value={goal} id="goal" label="Project Goal" type="text" placeholder="Enter your Goal for this Project (Optional)" fullWidth />
                 </Box>
                 <Box>
@@ -2080,8 +2140,8 @@ function CreateProject() {
                         </Select>
                     </FormControl>
                 </Box>
-                <Link to="/schedule" style={{ textDecoration: "none", marginBottom: 200 }}>
-                    <Button onClick={selectWorkPattern} variant="contained" size="large" type="submit">Submit</Button>
+                <Link to="/schedule" style={{ textDecoration: "none", marginBottom: 200, ...linkDisabler}}>
+                    <Button onClick={selectWorkPattern} variant="contained" size="large" type="submit" disabled={startDateError || endDateError || tooShortError}>Submit</Button>
                 </Link>
                 <br />
                 <br />
