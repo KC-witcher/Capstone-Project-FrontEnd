@@ -13,8 +13,11 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
+import FormHelperText from '@mui/material/FormHelperText';
 import { Link } from 'react-router-dom';
 
+// Array to house each of the output strings, useable in other JS files.
+export var options = [];
 
 // Provided by Juna
 const projectTypes =
@@ -212,11 +215,8 @@ function CreateProject() {
     // Total time it takes to complete project divided by available time in weeks, rounded up.
     var hoursPerWeekIdeal = Math.ceil(projectTime / time);
 
-    // Total time required to complete project divided by minimum amount of time required in weeks, rounded up.
-    var hoursPerWeek = Math.ceil(projectTime / minCompletion);
-
     const selectWorkPattern = () => {
-        console.log("Weeks required to complete project: " + time);
+        console.log("Weeks given to complete project: " + time);
         console.log("Hours per week required to complete project: " + hoursPerWeekIdeal);
 
         if (time <= 0) {
@@ -294,7 +294,7 @@ function CreateProject() {
             console.log("Distributing for 2 hours per week...");
 
             // If time required to complete is 4 hours per week or less...
-        } else if (hoursPerWeek <= 4) {
+        } else if (hoursPerWeekIdeal <= 4) {
             // Calls function to handle the simple-ish case of 4 hours per week.
             setOptionsWithHoursPerWeekLessThanEqualToFour();
             console.log("Distributing for 4 hours per week...");
@@ -306,7 +306,7 @@ function CreateProject() {
             console.log("Distributing for 5 hours per week...");
 
             // If time required to complete is 8 hours per week or less...
-        } else if (hoursPerWeek <= 8) {
+        } else if (hoursPerWeekIdeal <= 8) {
             // Calls function to handle the milder case of 8 hours per week.
             setOptionsWithHoursPerWeekLessThanEqualToEight();
             console.log("Distributing for 8 hours per week...");
@@ -326,11 +326,6 @@ function CreateProject() {
             console.log("2nd - inBest : " + inBest);
             console.log("3rd - onBest : " + onBest);
         };
-
-        console.log(optionOne);
-        console.log(optionTwo);
-        console.log(optionThree);
-        console.log(optionFour);
 
         readSchedules();
     };
@@ -847,7 +842,7 @@ function CreateProject() {
                             optionTwo[6][hour] = true;
                             optionTwo[6][hour + 4] = true;
                         };
-                    }
+                    };
                 };
             } else {
                 // Random number 0 - 3 inclusive.
@@ -1732,6 +1727,9 @@ function CreateProject() {
             outputOne = outputOne.substring(0, outputOne.length - 3);
         };
 
+        // Append number of weeks to the end.
+        outputOne = outputOne + "\n\n" + time + " week project timeline."
+
 
         console.log("\n[First Output]\n" + outputOne);
 
@@ -1776,6 +1774,8 @@ function CreateProject() {
             outputTwo = outputTwo.substring(0, outputTwo.length - 3);
         };
 
+        // Append number of weeks to the end.
+        outputTwo = outputTwo + "\n\n" + time + " week project timeline."
 
         console.log("\n[Second Output]\n" + outputTwo);
 
@@ -1818,6 +1818,11 @@ function CreateProject() {
         // If previous day had active hours, shave off the comma, space, space at the end.
         if (activeHours) {
             outputThree = outputThree.substring(0, outputThree.length - 3);
+        };
+
+        // Append number of weeks to the end if Weekends only is NOT chosen.
+        if (outputThree !== "") {
+            outputThree = outputThree + "\n\n" + time + " week project timeline."
         };
 
         console.log("\n[Third Output]\n" + outputThree);
@@ -1863,7 +1868,28 @@ function CreateProject() {
             outputFour = outputFour.substring(0, outputFour.length - 3);
         };
 
+        // Append number of weeks to the end if Weekends Only is not chosen.
+        if (outputFour !== "") {
+            outputFour = outputFour + "\n\n" + time + " week project timeline."
+        };
+
         console.log("\n[Fourth Output]\n" + outputFour);
+
+        // Array to house each of the output strings.
+        options = [
+            {
+                schedule: outputOne
+            }, 
+            {
+                schedule: outputTwo
+            }, 
+            {
+                schedule: outputThree
+            }, 
+            {
+                schedule: outputFour
+            }];
+
     }
 
     // Resets all options so that if the user goes back without reloading the page, the options are regenerated from scratch.
@@ -1908,21 +1934,18 @@ function CreateProject() {
     const startDateError = today > startDateTime.getDate() + 1;
 
     // If chosen end date is before the start date, prompt user to choose a different end date.
-    const endDateError = startDateTime.getDate() > endDateTime.getDate();
+    const endDateError = startDateTime.getTime() > endDateTime.getTime();
 
     // If chosen dates do not round up to the minimum amount of weeks required to complete the project, throw an error.
     const tooShortError = time < minCompletion;
 
+    // Checks for empty fields, enables button if there are no errors.
+    const disabler = (startDateError || endDateError || tooShortError || projectType === "" || priority === "" || value === "" || quality === "" ||
+        onBest === "" || inBest === "" || whenBest === "" || startDate === "" || endDate === "" || motivation === "")
+
     // Disables React Link routing below if there are errors.
-    const linkDisabler = (startDateError || endDateError || tooShortError) ? {pointerEvents: "none"} : {pointerEvents: ""};
+    const linkDisabler = disabler ? { pointerEvents: "none" } : { pointerEvents: "" };
 
-    /* README: IMPORTANT
-
-    Need to enforce the minCompletion variable on the form input fields. Requires form validation.
-    minCompletion is in weeks, so if the user selects a total number of weeks less than minCompletion, an error should be given.
-    Total number of weeks is stored in the variable 'time'.
-
-    */
     return (
         <Stack direction="row" spacing={3}>
             <Nav></Nav>
@@ -1951,6 +1974,7 @@ function CreateProject() {
                                 </MenuItem>
                             ))}
                         </Select>
+                        <FormHelperText>Field is required</FormHelperText>
                         <br />
                     </FormControl>
                 </Box>
@@ -1978,6 +2002,7 @@ function CreateProject() {
                                 Low
                             </MenuItem>
                         </Select>
+                        <FormHelperText>Field is required</FormHelperText>
                         <br />
                     </FormControl>
                     <TextField onChange={handleBudgetUpdate} value={budget} id="budget" label="Budget" placeholder="Enter the Budget for this Project (Optional)" fullWidth />
@@ -2003,6 +2028,7 @@ function CreateProject() {
                                 Low
                             </MenuItem>
                         </Select>
+                        <FormHelperText>Field is required</FormHelperText>
                         <br />
                     </FormControl>
                     <FormControl fullWidth>
@@ -2025,6 +2051,7 @@ function CreateProject() {
                                 Low
                             </MenuItem>
                         </Select>
+                        <FormHelperText>Field is required</FormHelperText>
                         <br />
                     </FormControl>
                     <TextField onChange={handleNumPeopleUpdate} value={numPeople} id="numPeople" label="Number of People" placeholder="Enter the Number of People on this Project" fullWidth />
@@ -2046,6 +2073,7 @@ function CreateProject() {
                             <FormControlLabel value="chunks" control={<Radio />} label="I do big chunks of work at a time." />
                             <FormControlLabel value="space" control={<Radio />} label="I space the work out." />
                         </RadioGroup>
+                        <FormHelperText>Field is required</FormHelperText>
                         <br />
                     </FormControl>
                     <FormControl sx={{ mt: 3, borderBottom: 1, borderColor: "lightgray" }} fullWidth>
@@ -2062,6 +2090,7 @@ function CreateProject() {
                             <FormControlLabel value="evening" control={<Radio />} label="The Evening." />
                             <FormControlLabel value="night" control={<Radio />} label="The Night." />
                         </RadioGroup>
+                        <FormHelperText>Field is required</FormHelperText>
                         <br />
                     </FormControl>
                     <FormControl sx={{ mt: 3, borderBottom: 1, borderColor: "lightgray" }} fullWidth>
@@ -2077,6 +2106,7 @@ function CreateProject() {
                             <FormControlLabel value="weekends" control={<Radio />} label="Weekends Only." />
                             <FormControlLabel value="both" control={<Radio />} label="Both Weekdays and Weekends." />
                         </RadioGroup>
+                        <FormHelperText>Field is required</FormHelperText>
                         <br />
                     </FormControl>
                 </Box>
@@ -2096,7 +2126,7 @@ function CreateProject() {
                         error={startDateError}
                         helperText={startDateError ? "Select a date after today's date." : ""}
                     />
-                    <br />
+                    <FormHelperText sx={{ ml: 2 }}>Field is required</FormHelperText>
                     <br />
                     <TextField
                         InputLabelProps={{ shrink: true }}
@@ -2109,7 +2139,7 @@ function CreateProject() {
                         error={endDateError}
                         helperText={endDateError ? "Select a date after your chosen start date." : ""}
                     />
-                    <br />
+                    <FormHelperText sx={{ ml: 2 }}>Field is required</FormHelperText>
                     <br />
                     {(tooShortError) ? <div className="error">Your selected project type requires {minCompletion} week(s) to complete. Please choose dates that are farther apart. <br /><br /></div> : <></>}
                     <TextField multiline rows={10} onChange={handleGoalUpdate} value={goal} id="goal" label="Project Goal" type="text" placeholder="Enter your Goal for this Project (Optional)" fullWidth />
@@ -2138,15 +2168,16 @@ function CreateProject() {
                                 Low Motivation / Don't Want to Do It
                             </MenuItem>
                         </Select>
+                        <FormHelperText>Field is required</FormHelperText>
                     </FormControl>
                 </Box>
-                <Link to="/schedule" style={{ textDecoration: "none", marginBottom: 200, ...linkDisabler}}>
-                    <Button onClick={selectWorkPattern} variant="contained" size="large" type="submit" disabled={startDateError || endDateError || tooShortError}>Submit</Button>
+                <Link to="/schedule" style={{ textDecoration: "none", marginBottom: 200, ...linkDisabler }}>
+                    <Button sx={{ mb: 2 }} onClick={selectWorkPattern} variant="contained" size="large" type="submit" disabled={disabler}>Submit</Button>
+                    {(disabler) ? <div className="error">You have left required fields empty. Please fill in the fields that are marked required. <br /><br /></div> : <></>}
                 </Link>
-                <br />
-                <br />
             </Stack>
         </Stack >
     );
 }
+
 export default CreateProject;

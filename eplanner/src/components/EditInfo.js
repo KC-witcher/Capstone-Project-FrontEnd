@@ -18,8 +18,8 @@ function EditInfo() {
                     <h2>Enter the Information You Would Like to Change</h2>
                     <br/>
                     <Stack sx={{ maxWidth: 350 }} spacing={3}>
-                        <TextField id="fName" label="First Name" type="text" placeholder="Enter new First Name" fullWidth />
-                        <TextField id="lName" label="Last Name" type="text" placeholder="Enter new Last Name" fullWidth />
+                        <TextField id="fName" label="First Name" type="text" placeholder="Enter new First Name" fullWidth InputLabelProps={{ shrink: true }}/>
+                        <TextField id="lName" label="Last Name" type="text" placeholder="Enter new Last Name" fullWidth InputLabelProps={{ shrink: true }}/>
                     </Stack>
                     <Button sx={{ mt: 3 }} variant="contained" size="large">Submit</Button>
                 </Box>

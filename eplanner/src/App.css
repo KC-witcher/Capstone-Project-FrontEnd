@@ -9,6 +9,11 @@ body {
   align-items: center;
 }
 
+.box:hover {
+  background-color: rgb(210, 238, 255);
+  cursor: pointer;
+}
+
 h1 {
   margin: 0;
 }
