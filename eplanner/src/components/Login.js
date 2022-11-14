@@ -1,6 +1,6 @@
 import "../App.css";
 import Button from "@mui/material/Button";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Stack from "@mui/material/Stack";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -11,20 +11,29 @@ function Login() {
   const [password, setPassword] = useState ('');
   const [loginStatus, setLoginStatus] = useState('');
 
+  Axios.defaults.withCredentials = true;
+
   const login = () => {
     Axios.post("http://localhost:3002/api/login", {
        email: email,
        password: password,
     }).then((response) => {
-       if (!response.data.message) {
+       if (response.data.message) {
           setLoginStatus(response.data.message);
-          console.log({loginStatus});
        } else {
-          setLoginStatus (response.data[0].message);
-          console.log({loginStatus});
+          setLoginStatus(response.data[0].email);
        }
     });
     };
+
+    //whenever we referesh the page and a user is logged, we are going to display them
+    useEffect(() => {
+      Axios.get("http://localhost:3002/api/login").then((response) => {
+        if (response.data.loggedIn === true) {
+          setLoginStatus(response.data.user[0].email);
+        }
+      });
+    }, []);
 
   return (
     <Stack sx={{ p: 3, maxWidth: 350 }} spacing={3}>
@@ -42,13 +51,17 @@ function Login() {
            }} fullWidth />
       </item>
       <item>
-        <Link to="/home" style={{ textDecoration: "none" }}>
+        <Link style={{ textDecoration: "none" }}>
           <Button variant="contained" onClick={login}>Submit</Button>
         </Link>
         <Link to="/signup" style={{ textDecoration: "none" }}>
           <Button sx={{ ml: 3 }} variant="outlined">Sign Up</Button>
         </Link>
+        <Link to="/home" style={{ textDecoration: "none" }}>
+          <Button sx={{ ml: 0.6 }} variant="outlined">HomePage (Testing)</Button>
+        </Link>
       </item>
+      <h1>Hello! You're logged in with: {loginStatus}</h1>
     </Stack>
   );
 }
