@@ -209,8 +209,8 @@ function CreateProject() {
     var startDateTime = new Date(startDate);
     var endDateTime = new Date(endDate);
     time = endDateTime.getTime() - startDateTime.getTime();
-    /* Amount of time between two given dates, rounded down, in weeks. Ensures full weeks are given. */
-    time = Math.floor(time / (1000 * 3600 * 24 * 7));
+    /* Amount of time between two given dates, rounded up, in weeks. */
+    time = Math.ceil(time / (1000 * 3600 * 24 * 7));
 
     // Total time it takes to complete project divided by available time in weeks, rounded up.
     var hoursPerWeekIdeal = Math.ceil(projectTime / time);
