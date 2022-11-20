@@ -19,7 +19,7 @@ app.use(express.static("public"));
 const port = 3000 || process.env.PORT;
 
 app.get("/", (req, res) => {
-  res.render(index.html);
+  res.render(index.js);
 });
 
 app.listen(port, () => {
