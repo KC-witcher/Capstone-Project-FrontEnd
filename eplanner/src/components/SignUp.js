@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../App.css";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
-import Axios from "axios";
 
 //After signing up and clicking submit, do we want to go directly to the home page?
 //Or do we want to ask the user to sign in using their new credentials (go to sign in page)?
@@ -16,14 +16,16 @@ function SignUp() {
   const [lName, setLastName] = useState("");
 
   const signUp = () => {
-    Axios.post("http://localhost:3002/api/create", {
-      email: email,
-      password: password,
-      fname: fName,
-      lname: lName,
-    }).then((response) => {
-      console.log(response);
-    });
+    axios
+      .post("http://localhost:3002/api/create", {
+        email: email,
+        password: password,
+        fname: fName,
+        lname: lName,
+      })
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   const passwordError = password !== passwordAgain;
