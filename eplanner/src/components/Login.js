@@ -1,15 +1,16 @@
+import axios from "axios";
 import "../App.css";
 import Button from "@mui/material/Button";
 import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
+  const [userID, setUserID] = useState(-1);
 
   axios.defaults.withCredentials = true;
 
@@ -20,10 +21,12 @@ function Login() {
         password: password,
       })
       .then((response) => {
+        // console.log(response);
         if (response.data.message) {
           setLoginStatus(response.data.message);
         } else {
           setLoginStatus(response.data[0].EMAIL_USER);
+          setUserID(response.data[0].ID_USER);
         }
       });
   };
@@ -84,6 +87,7 @@ function Login() {
         </Link>
       </item>
       <h1>Hello! You're logged in with: {loginStatus}</h1>
+      <h1>User ID is {userID}</h1>
     </Stack>
   );
 }

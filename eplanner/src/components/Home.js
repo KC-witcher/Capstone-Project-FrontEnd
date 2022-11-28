@@ -1,30 +1,71 @@
-import '../App.css';
-import Nav from './Nav';
+import React, { useState, useEffect } from "react";
+import "../App.css";
+import Nav from "./Nav";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { Link } from 'react-router-dom';
+import { useParams, Link } from "react-router-dom";
+import axios from "axios";
 
 function Home() {
+  const [name, setName] = useState("");
+  let { id } = useParams();
+  axios.get(`http://localhost:3002/api/getNames/${id}`).then((response) => {
+    if (response.data.success) {
+      const { FNAME_USER } = response.data.result[0];
+      setName(FNAME_USER);
+    } else {
+      console.log("Error Occured");
+    }
+  });
+
   return (
     <Stack direction="row" spacing={3} sx={{ height: "100vh" }}>
       <Nav></Nav>
       <Stack spacing={2} sx={{ width: "100%", pr: 3 }}>
-        <Box sx={{ pt: 3, borderBottom: 2, borderColor: "lightgray", ml: -3, mr: -3, pl: 3, pr: 3 }}>
+        <Box
+          sx={{
+            pt: 3,
+            borderBottom: 2,
+            borderColor: "lightgray",
+            ml: -3,
+            mr: -3,
+            pl: 3,
+            pr: 3,
+          }}
+        >
           <h1 className="center">ePlanner Home Page</h1>
           <br />
         </Box>
         <Box>
-          <h2>Welcome Back, Name</h2>
+          <h2>Welcome Back, {name}</h2>
         </Box>
-        <Link to="/view" style={{ textDecoration: "none"}}>
-          <Button color="success" sx={{ p: 2, width: "100%" }} variant="contained">View My Projects</Button>
+        <Link to="/view" style={{ textDecoration: "none" }}>
+          <Button
+            color="success"
+            sx={{ p: 2, width: "100%" }}
+            variant="contained"
+          >
+            View My Projects
+          </Button>
         </Link>
-        <Link to="/create" style={{ textDecoration: "none"}}>
-          <Button color="success" sx={{ p: 2, width: "100%" }} variant="contained">Create New Project</Button>
+        <Link to="/create" style={{ textDecoration: "none" }}>
+          <Button
+            color="success"
+            sx={{ p: 2, width: "100%" }}
+            variant="contained"
+          >
+            Create New Project
+          </Button>
         </Link>
-        <Link to="/edit" style={{ textDecoration: "none"}}>
-          <Button color="success" sx={{ p: 2, width: "100%" }} variant="contained">Edit User Information</Button>
+        <Link to="/edit" style={{ textDecoration: "none" }}>
+          <Button
+            color="success"
+            sx={{ p: 2, width: "100%" }}
+            variant="contained"
+          >
+            Edit User Information
+          </Button>
         </Link>
       </Stack>
     </Stack>
