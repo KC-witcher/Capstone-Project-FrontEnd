@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -16,6 +16,8 @@ import axios from "axios";
 var n = 0;
 
 function ScheduleGen() {
+  let { pid } = useParams();
+
   //Scroll to the top of the page after rendering
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,7 +30,7 @@ function ScheduleGen() {
     n = 0;
 
     axios
-      .post("http://localhost:3002/api/createSchedule", {
+      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })
@@ -43,7 +45,7 @@ function ScheduleGen() {
     n = 1;
 
     axios
-      .post("http://localhost:3002/api/createSchedule", {
+      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })
@@ -58,7 +60,7 @@ function ScheduleGen() {
     n = 2;
 
     axios
-      .post("http://localhost:3002/api/createSchedule", {
+      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })
@@ -73,7 +75,7 @@ function ScheduleGen() {
     n = 3;
 
     axios
-      .post("http://localhost:3002/api/createSchedule", {
+      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })

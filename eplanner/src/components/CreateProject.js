@@ -14,7 +14,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import FormHelperText from "@mui/material/FormHelperText";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 // Array to house each of the output strings, useable in other JS files.
@@ -562,6 +562,8 @@ let optionFour = [
 ];
 
 function CreateProject() {
+  let { id } = useParams();
+
   /* Responsible for setting project type. */
   const [projectType, setProjectType] = React.useState("");
   const handleProjectUpdate = (event) => {
@@ -669,7 +671,7 @@ function CreateProject() {
   //still not called on button click
   const createProject = () => {
     axios
-      .post("http://localhost:3002/api/createProject", {
+      .post(`http://localhost:3002/api/createProject/${id}`, {
         type: projectType,
         length: projectLength,
         priority: priority,
@@ -3375,7 +3377,7 @@ function CreateProject() {
         >
           <Button
             sx={{ mb: 2 }}
-            onClick={selectWorkPattern}
+            onClick={createProject}
             variant="contained"
             size="large"
             type="submit"

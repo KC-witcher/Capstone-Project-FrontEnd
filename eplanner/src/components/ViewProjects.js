@@ -6,14 +6,17 @@ import Box from "@mui/material/Box";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function ViewProjects() {
+  let { id } = useParams();
   const [listOfProjects, setListOfProjects] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3002/api/getProject").then((response) => {
-      setListOfProjects(response.data);
+    axios.get(`http://localhost:3002/api/getProject/${id}`).then((response) => {
+      setListOfProjects(response.data.result);
+      console.log(response);
     });
   }, []);
 
@@ -51,7 +54,7 @@ function ViewProjects() {
           {listOfProjects.map((project) => (
             <span>
               <Button variant="outlined" size="large" style={{ width: "50%" }}>
-                {project.type}
+                {project.TYPE_PROJECT}
               </Button>
               <IconButton aria-label="delete" onClick={deleteProject}>
                 <DeleteIcon color="error" />
