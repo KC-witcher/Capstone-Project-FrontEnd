@@ -6,6 +6,9 @@ import Stack from "@mui/material/Stack";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 
+// Declare userID to be used elsewhere in application.
+var id = -1;
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,6 +30,12 @@ function Login() {
         } else {
           setLoginStatus(response.data[0].EMAIL_USER);
           setUserID(response.data[0].ID_USER);
+
+          // Set the value of the userID after response is received.
+          id = response.data[0].ID_USER;
+
+          // Store the value of the userID. "UserID" is the key used to retreive this value.
+          localStorage.setItem("UserID", id);
         }
       });
   };

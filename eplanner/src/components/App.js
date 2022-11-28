@@ -9,6 +9,12 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // Deleted the Schedule Confirm component since I used a dialog (pop up) instead.
 
+// Get variable stored in login page from storage.
+var id = localStorage.getItem("UserID");
+
+// Check to make sure it works.
+console.log(id);
+
 function App() {
   return (
     <Router>
