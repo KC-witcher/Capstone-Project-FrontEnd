@@ -17,7 +17,8 @@ function Login() {
 
   axios.defaults.withCredentials = true;
 
-  const login = async () => {
+  const login = async (e) => {
+    e.preventDefault();
     await axios
       .post("http://localhost:3002/api/login", {
         email: email,
