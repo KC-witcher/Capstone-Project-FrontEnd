@@ -7,7 +7,7 @@ import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // Declare userID to be used elsewhere in application.
-var id = -1;
+let id = -1;
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -17,8 +17,8 @@ function Login() {
 
   axios.defaults.withCredentials = true;
 
-  const login = () => {
-    axios
+  const login = async () => {
+    await axios
       .post("http://localhost:3002/api/login", {
         email: email,
         password: password,
@@ -79,7 +79,7 @@ function Login() {
         />
       </item>
       <item>
-        <Link style={{ textDecoration: "none" }}>
+        <Link to={`/home/${id}`} style={{ textDecoration: "none" }}>
           <Button variant="contained" onClick={login}>
             Submit
           </Button>
@@ -87,11 +87,6 @@ function Login() {
         <Link to="/signup" style={{ textDecoration: "none" }}>
           <Button sx={{ ml: 3 }} variant="outlined">
             Sign Up
-          </Button>
-        </Link>
-        <Link to="/home" style={{ textDecoration: "none" }}>
-          <Button sx={{ ml: 0.6 }} variant="outlined">
-            HomePage (Testing)
           </Button>
         </Link>
       </item>

@@ -7,10 +7,14 @@ import Box from "@mui/material/Box";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
+let id = localStorage.getItem("UserID");
+
 function Home() {
   const [name, setName] = useState("");
-  let { id } = useParams();
+  // let { id } = useParams();
+  console.log("storage id: ", id);
   axios.get(`http://localhost:3002/api/getNames/${id}`).then((response) => {
+    console.log(response);
     if (response.data.success) {
       const { FNAME_USER } = response.data.result[0];
       setName(FNAME_USER);
