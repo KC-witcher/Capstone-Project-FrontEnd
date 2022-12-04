@@ -185,7 +185,7 @@ function ScheduleGen() {
                 <DialogTitle>Congratulations!</DialogTitle>
                 <DialogContent>
                   <DialogContentText>
-                    Your chosen schedule is...
+                    Please enter this schedule into your calendar...
                     {options[n].schedule.split("\n").map((str) => (
                       <Stack sx={{ fontWeight: "bold" }}>{str}</Stack>
                     ))}
