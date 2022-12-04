@@ -31,9 +31,9 @@ function SignUp() {
   const passwordError = password !== passwordAgain;
 
   return (
-    <Stack sx={{ p: 3, maxWidth: 350 }} spacing={3}>
+    <Stack className="login-container" sx={{ p: 3, maxWidth: 350 }} spacing={3}>
       <item>
-        <h1>Sign Up for ePlanner</h1>
+        <h1 className="login-header">Sign Up for ePlanner</h1>
       </item>
       {/* We can check if we have a valid email address before submitting using regualar expressions or some module we can install */}
       <item>

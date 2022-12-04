@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
-import "./styles/Login.css";
 
 // Declare userID to be used elsewhere in application.
 // let id = -1;

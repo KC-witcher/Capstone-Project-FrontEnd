@@ -7,6 +7,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #1f618d;
 }
 
 .box:hover {
@@ -42,4 +43,15 @@ h1 {
 
 .hoverEffect:hover {
   color: #e5e7e9;
+}
+
+.login-container {
+  margin: 200px auto;
+  display: block;
+  box-shadow: 0px 20px 20px #abb2b9;
+}
+
+.login-header {
+  text-align: center;
+  color: #1f618d;
 }
