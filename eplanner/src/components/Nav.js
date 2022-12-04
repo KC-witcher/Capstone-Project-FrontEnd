@@ -50,10 +50,10 @@ function Nav() {
     >
       <Link
         to={`/home/${id}`}
-        style={{ textDecoration: "none", color: "black" }}
+        style={{ textDecoration: "none", color: "#1f618d" }}
       >
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton selected={homeSelected}>
+          <ListItemButton selected={homeSelected} className="hoverEffect">
             <ListItemDecorator>🏠</ListItemDecorator>
             Home
           </ListItemButton>
@@ -61,10 +61,10 @@ function Nav() {
       </Link>
       <Link
         to={`/view/${id}`}
-        style={{ textDecoration: "none", color: "black" }}
+        style={{ textDecoration: "none", color: "#1f618d" }}
       >
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton selected={viewSelected}>
+          <ListItemButton selected={viewSelected} className="hoverEffect">
             <ListItemDecorator>📚</ListItemDecorator>
             View My Projects
           </ListItemButton>
@@ -72,10 +72,10 @@ function Nav() {
       </Link>
       <Link
         to={`/create/${id}`}
-        style={{ textDecoration: "none", color: "black" }}
+        style={{ textDecoration: "none", color: "#1f618d" }}
       >
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton selected={createSelected}>
+          <ListItemButton selected={createSelected} className="hoverEffect">
             <ListItemDecorator>🧾</ListItemDecorator>
             Create New Project
           </ListItemButton>
@@ -83,10 +83,10 @@ function Nav() {
       </Link>
       <Link
         to={`/edit/${id}`}
-        style={{ textDecoration: "none", color: "black" }}
+        style={{ textDecoration: "none", color: "#1f618d" }}
       >
         <ListItem sx={{ pb: 2 }}>
-          <ListItemButton selected={editSelected}>
+          <ListItemButton selected={editSelected} className="hoverEffect">
             <ListItemDecorator>✏️</ListItemDecorator>
             Edit User Information
           </ListItemButton>

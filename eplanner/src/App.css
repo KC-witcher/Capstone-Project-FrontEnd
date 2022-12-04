@@ -39,3 +39,7 @@ h1 {
 .App-link {
   color: #61dafb;
 }
+
+.hoverEffect:hover {
+  color: #e5e7e9;
+}
