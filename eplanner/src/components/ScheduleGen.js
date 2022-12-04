@@ -15,9 +15,9 @@ import axios from "axios";
 
 var n = 0;
 
-function ScheduleGen() {
-  let { pid } = useParams();
+let { id } = localStorage.getItem("UserID");
 
+function ScheduleGen() {
   //Scroll to the top of the page after rendering
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -30,7 +30,7 @@ function ScheduleGen() {
     n = 0;
 
     axios
-      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
+      .post(`http://localhost:3002/api/createSchedule/${id}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })
@@ -45,7 +45,7 @@ function ScheduleGen() {
     n = 1;
 
     axios
-      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
+      .post(`http://localhost:3002/api/createSchedule/${id}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })
@@ -60,7 +60,7 @@ function ScheduleGen() {
     n = 2;
 
     axios
-      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
+      .post(`http://localhost:3002/api/createSchedule/${id}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })
@@ -75,7 +75,7 @@ function ScheduleGen() {
     n = 3;
 
     axios
-      .post(`http://localhost:3002/api/createSchedule/${pid}`, {
+      .post(`http://localhost:3002/api/createSchedule/${id}`, {
         accepted: n,
         schedule_string: options[n].schedule.split("\n"),
       })

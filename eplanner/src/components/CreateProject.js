@@ -20,6 +20,8 @@ import axios from "axios";
 // Array to house each of the output strings, useable in other JS files.
 export var options = [];
 
+let id = localStorage.getItem("UserID");
+
 // Provided by Juna
 const projectTypes = [
   "Research Paper",
@@ -562,7 +564,7 @@ let optionFour = [
 ];
 
 function CreateProject() {
-  let { id } = useParams();
+  // let { id } = useParams();
 
   /* Responsible for setting project type. */
   const [projectType, setProjectType] = React.useState("");
@@ -3372,7 +3374,7 @@ function CreateProject() {
           </FormControl>
         </Box>
         <Link
-          to="/schedule"
+          to={`/schedule/${id}`}
           style={{ textDecoration: "none", marginBottom: 200, ...linkDisabler }}
         >
           <Button

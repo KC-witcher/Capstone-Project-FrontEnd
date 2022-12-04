@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 let id = localStorage.getItem("UserID");
 
 // Check to make sure it works.
-console.log(id);
+console.log("local storage id: ", id);
 
 function App() {
   return (
@@ -23,9 +23,9 @@ function App() {
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path={`/home/${id}`} element={<Home id={id} />} />
         <Route exact path={`/view/${id}`} element={<ViewProjects />} />
-        <Route exact path="/create" element={<CreateProject />} />
-        <Route exact path="/edit" element={<EditInfo />} />
-        <Route exact path="/schedule" element={<ScheduleGen />} />
+        <Route exact path={`/create/${id}`} element={<CreateProject />} />
+        <Route exact path={`/edit/${id}`} element={<EditInfo />} />
+        <Route exact path={`/schedule/${id}`} element={<ScheduleGen />} />
       </Routes>
     </Router>
   );

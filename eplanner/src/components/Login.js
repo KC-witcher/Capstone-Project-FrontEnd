@@ -7,7 +7,7 @@ import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 
 // Declare userID to be used elsewhere in application.
-let id = -1;
+// let id = -1;
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -18,14 +18,15 @@ function Login() {
   axios.defaults.withCredentials = true;
 
   const login = async (e) => {
-    e.preventDefault();
+    console.log("log in console", userID);
+    // e.preventDefault();
     await axios
       .post("http://localhost:3002/api/login", {
         email: email,
         password: password,
       })
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         if (response.data.message) {
           setLoginStatus(response.data.message);
         } else {
@@ -33,10 +34,10 @@ function Login() {
           setUserID(response.data[0].ID_USER);
 
           // Set the value of the userID after response is received.
-          id = response.data[0].ID_USER;
+          // setUserID( response.data[0].ID_USER);
 
           // Store the value of the userID. "UserID" is the key used to retreive this value.
-          localStorage.setItem("UserID", id);
+          localStorage.setItem("UserID", userID);
         }
       });
   };
@@ -50,6 +51,7 @@ function Login() {
     });
   }, []);
 
+  // const flushLocalStorage = () => console.log("function hit");
   return (
     <Stack sx={{ p: 3, maxWidth: 350 }} spacing={3}>
       <item>
@@ -64,6 +66,7 @@ function Login() {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          onLoad={localStorage.clear()}
           fullWidth
         />
       </item>
@@ -76,11 +79,16 @@ function Login() {
           onChange={(e) => {
             setPassword(e.target.value);
           }}
+          onKeyUp={login}
           fullWidth
         />
       </item>
       <item>
-        <Link to={`/home/${id}`} style={{ textDecoration: "none" }}>
+        <Link
+          // to={setTimeout(() => `/home/${id}`, 200)}
+          to={`/home/${userID}`}
+          style={{ textDecoration: "none" }}
+        >
           <Button variant="contained" onClick={login}>
             Submit
           </Button>
@@ -91,8 +99,6 @@ function Login() {
           </Button>
         </Link>
       </item>
-      <h1>Hello! You're logged in with: {loginStatus}</h1>
-      <h1>User ID is {userID}</h1>
     </Stack>
   );
 }

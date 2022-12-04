@@ -9,21 +9,26 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+let userID = localStorage.getItem("UserID");
+
 function ViewProjects() {
-  let { id } = useParams();
   const [listOfProjects, setListOfProjects] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3002/api/getProject/${id}`).then((response) => {
-      setListOfProjects(response.data.result);
-      console.log(response);
-    });
+    axios
+      .get(`http://localhost:3002/api/getProject/${userID}`)
+      .then((response) => {
+        setListOfProjects(response.data.result);
+        // console.log(response.data.result);
+      });
   }, []);
 
+  console.log("list of projects: ", listOfProjects);
   const deleteProject = (id) => {
+    console.log(id);
     axios
       //maybe `/api/deleteProject/${id}`
-      .delete("/api/deleteProject/:id")
+      .post(`http://localhost:3002/api/deleteProject/${id}`)
       .then((response) => {
         console.log(response);
       });
@@ -56,7 +61,10 @@ function ViewProjects() {
               <Button variant="outlined" size="large" style={{ width: "50%" }}>
                 {project.TYPE_PROJECT}
               </Button>
-              <IconButton aria-label="delete" onClick={deleteProject}>
+              <IconButton
+                aria-label="delete"
+                onClick={deleteProject(project.ID_PROJECT)}
+              >
                 <DeleteIcon color="error" />
               </IconButton>
             </span>

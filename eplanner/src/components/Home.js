@@ -44,7 +44,7 @@ function Home() {
         <Box>
           <h2>Welcome Back, {name}</h2>
         </Box>
-        <Link to="/view" style={{ textDecoration: "none" }}>
+        <Link to={`/view/${id}`} style={{ textDecoration: "none" }}>
           <Button
             color="success"
             sx={{ p: 2, width: "100%" }}
@@ -53,7 +53,7 @@ function Home() {
             View My Projects
           </Button>
         </Link>
-        <Link to="/create" style={{ textDecoration: "none" }}>
+        <Link to={`/create/${id}`} style={{ textDecoration: "none" }}>
           <Button
             color="success"
             sx={{ p: 2, width: "100%" }}
@@ -62,7 +62,7 @@ function Home() {
             Create New Project
           </Button>
         </Link>
-        <Link to="/edit" style={{ textDecoration: "none" }}>
+        <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
           <Button
             color="success"
             sx={{ p: 2, width: "100%" }}
