@@ -4,18 +4,18 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import React, { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { options } from "./CreateProject";
 import axios from "axios";
 
 var n = 0;
 
-let { id } = localStorage.getItem("UserID");
+let id = localStorage.getItem("UserID");
+let options = localStorage.getItem("options");
 
 function ScheduleGen() {
   //Scroll to the top of the page after rendering
