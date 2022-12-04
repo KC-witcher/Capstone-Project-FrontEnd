@@ -25,6 +25,10 @@ function EditInfo() {
       });
   };
 
+  const linkDisabler = (fName === "" || lName === "")
+    ? { pointerEvents: "none" }
+    : { pointerEvents: "" };
+
   return (
     <Stack direction="row" spacing={3} sx={{ height: "100vh" }}>
       <Nav></Nav>
@@ -70,7 +74,7 @@ function EditInfo() {
               InputLabelProps={{ shrink: true }}
             />
           </Stack>
-          <Link to={`/home/${id}`}>
+          <Link to={`/home/${id}`} style={{ textDecoration: "none", ...linkDisabler}}>
             <Button
               sx={{ mt: 3 }}
               variant="contained"

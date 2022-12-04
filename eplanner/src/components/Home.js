@@ -49,7 +49,7 @@ function Home() {
           <Button
             className="button-color"
             sx={{ p: 2, width: "100%" }}
-            variant="text"
+            variant="contained"
           >
             View My Projects
           </Button>
@@ -58,7 +58,7 @@ function Home() {
           <Button
             className="button-color"
             sx={{ p: 2, width: "100%" }}
-            variant="text"
+            variant="contained"
           >
             Create New Project
           </Button>
@@ -67,7 +67,7 @@ function Home() {
           <Button
             className="button-color"
             sx={{ p: 2, width: "100%" }}
-            variant="text"
+            variant="contained"
           >
             Edit User Information
           </Button>
