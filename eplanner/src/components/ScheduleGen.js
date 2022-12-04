@@ -10,12 +10,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { options } from "./CreateProject"
 import axios from "axios";
 
 var n = 0;
 
 let id = localStorage.getItem("UserID");
-let options = localStorage.getItem("options");
 
 function ScheduleGen() {
   //Scroll to the top of the page after rendering
@@ -202,7 +202,7 @@ function ScheduleGen() {
         ) : (
           <Stack sx={{ alignItems: "center" }}>
             <h2 className="center">Please generate a schedule first!</h2>
-            <Link to="/create" style={{ textDecoration: "none" }}>
+            <Link to={`/create/${id}`} style={{ textDecoration: "none" }}>
               <Button variant="contained">Create Project</Button>
             </Link>
           </Stack>

@@ -14,11 +14,11 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import FormHelperText from "@mui/material/FormHelperText";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 // Array to house each of the output strings.
-var options = [];
+export var options = [];
 
 let id = localStorage.getItem("UserID");
 
@@ -2499,9 +2499,6 @@ function CreateProject() {
         schedule: outputFour,
       },
     ];
-
-    // Store the options locally after they are read.
-    localStorage.setItem("options", options);
   };
 
   // Resets all options so that if the user goes back without reloading the page, the options are regenerated from scratch.
