@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
+import "./styles/Login.css";
 
 // Declare userID to be used elsewhere in application.
 // let id = -1;
@@ -53,9 +54,9 @@ function Login() {
 
   // const flushLocalStorage = () => console.log("function hit");
   return (
-    <Stack sx={{ p: 3, maxWidth: 350 }} spacing={3}>
+    <Stack className="login-container" sx={{ p: 3, maxWidth: 350 }} spacing={3}>
       <item>
-        <h1>Login to ePlanner</h1>
+        <h1 className="login-header">ePlanner</h1>
       </item>
       <item>
         <TextField
@@ -90,7 +91,7 @@ function Login() {
           style={{ textDecoration: "none" }}
         >
           <Button variant="contained" onClick={login}>
-            Submit
+            Login
           </Button>
         </Link>
         <Link to="/signup" style={{ textDecoration: "none" }}>

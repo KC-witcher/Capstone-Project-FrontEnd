@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import "./styles/Home.css";
 
 let id = localStorage.getItem("UserID");
 
@@ -42,31 +43,31 @@ function Home() {
           <br />
         </Box>
         <Box>
-          <h2>Welcome Back, {name}</h2>
+          <h2 className="welcome-message">Welcome, {name}</h2>
         </Box>
         <Link to={`/view/${id}`} style={{ textDecoration: "none" }}>
           <Button
-            color="success"
+            className="button-color"
             sx={{ p: 2, width: "100%" }}
-            variant="contained"
+            variant="text"
           >
             View My Projects
           </Button>
         </Link>
         <Link to={`/create/${id}`} style={{ textDecoration: "none" }}>
           <Button
-            color="success"
+            className="button-color"
             sx={{ p: 2, width: "100%" }}
-            variant="contained"
+            variant="text"
           >
             Create New Project
           </Button>
         </Link>
         <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
           <Button
-            color="success"
+            className="button-color"
             sx={{ p: 2, width: "100%" }}
-            variant="contained"
+            variant="text"
           >
             Edit User Information
           </Button>
