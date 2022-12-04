@@ -24,13 +24,16 @@ function ViewProjects() {
   }, []);
 
   console.log("list of projects: ", listOfProjects);
-  const deleteProject = (id) => {
-    console.log(id);
+
+  const deleteProject = (event) => {
+    // console.log(event.currentTarget.value);
+    const projectID = event.currentTarget.value;
     axios
       //maybe `/api/deleteProject/${id}`
-      .post(`http://localhost:3002/api/deleteProject/${id}`)
+      .post(`http://localhost:3002/api/deleteProject/${projectID}`)
       .then((response) => {
-        console.log(response);
+        console.log("YOU GOT DELETED!", response);
+        window.location.reload();
       });
   };
 
@@ -63,7 +66,8 @@ function ViewProjects() {
               </Button>
               <IconButton
                 aria-label="delete"
-                onClick={deleteProject(project.ID_PROJECT)}
+                value={project.ID_PROJECT}
+                onClick={deleteProject}
               >
                 <DeleteIcon color="error" />
               </IconButton>

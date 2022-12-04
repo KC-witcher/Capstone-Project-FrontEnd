@@ -10,7 +10,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { options } from "./CreateProject"
+import { options } from "./CreateProject";
 import axios from "axios";
 
 var n = 0;
@@ -29,14 +29,14 @@ function ScheduleGen() {
   const optionOneClickOpen = () => {
     n = 0;
 
-    axios
-      .post(`http://localhost:3002/api/createSchedule/${id}`, {
-        accepted: n,
-        schedule_string: options[n].schedule.split("\n"),
-      })
-      .then((response) => {
-        console.log(response);
-      });
+    // axios
+    //   .post(`http://localhost:3002/api/createSchedule/${id}`, {
+    //     accepted: n,
+    //     schedule_string: options[n].schedule.split("\n"),
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
 
     setOpen(true);
   };
@@ -44,14 +44,14 @@ function ScheduleGen() {
   const optionTwoClickOpen = () => {
     n = 1;
 
-    axios
-      .post(`http://localhost:3002/api/createSchedule/${id}`, {
-        accepted: n,
-        schedule_string: options[n].schedule.split("\n"),
-      })
-      .then((response) => {
-        console.log(response);
-      });
+    // axios
+    //   .post(`http://localhost:3002/api/createSchedule/${id}`, {
+    //     accepted: n,
+    //     schedule_string: options[n].schedule.split("\n"),
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
 
     setOpen(true);
   };
@@ -59,14 +59,14 @@ function ScheduleGen() {
   const optionThreeClickOpen = () => {
     n = 2;
 
-    axios
-      .post(`http://localhost:3002/api/createSchedule/${id}`, {
-        accepted: n,
-        schedule_string: options[n].schedule.split("\n"),
-      })
-      .then((response) => {
-        console.log(response);
-      });
+    // axios
+    //   .post(`http://localhost:3002/api/createSchedule/${id}`, {
+    //     accepted: n,
+    //     schedule_string: options[n].schedule.split("\n"),
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
 
     setOpen(true);
   };
@@ -74,14 +74,14 @@ function ScheduleGen() {
   const optionFourClickOpen = () => {
     n = 3;
 
-    axios
-      .post(`http://localhost:3002/api/createSchedule/${id}`, {
-        accepted: n,
-        schedule_string: options[n].schedule.split("\n"),
-      })
-      .then((response) => {
-        console.log(response);
-      });
+    // axios
+    //   .post(`http://localhost:3002/api/createSchedule/${id}`, {
+    //     accepted: n,
+    //     schedule_string: options[n].schedule.split("\n"),
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
 
     setOpen(true);
   };
@@ -192,7 +192,7 @@ function ScheduleGen() {
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Link to="/home" style={{ textDecoration: "none" }}>
+                  <Link to={`/home/${id}`} style={{ textDecoration: "none" }}>
                     <Button onClick={handleClose}>Return to Home Page</Button>
                   </Link>
                 </DialogActions>

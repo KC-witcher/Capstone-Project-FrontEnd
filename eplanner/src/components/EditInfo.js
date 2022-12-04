@@ -2,10 +2,13 @@ import "../App.css";
 import React, { useState } from "react";
 import Nav from "./Nav";
 import Stack from "@mui/material/Stack";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
 import axios from "axios";
+
+let id = localStorage.getItem("UserID");
 
 function EditInfo() {
   const [fName, setFirstName] = useState("");
@@ -13,7 +16,7 @@ function EditInfo() {
 
   const editInfo = () => {
     axios
-      .post("http://localhost:3002/api/updateNames", {
+      .put(`http://localhost:3002/api/update/${id}`, {
         fname: fName,
         lname: lName,
       })
@@ -67,15 +70,17 @@ function EditInfo() {
               InputLabelProps={{ shrink: true }}
             />
           </Stack>
-          <Button
-            sx={{ mt: 3 }}
-            variant="contained"
-            size="large"
-            disabled={fName === "" || lName === ""}
-            onClick={editInfo}
-          >
-            Submit
-          </Button>
+          <Link to={`/home/${id}`}>
+            <Button
+              sx={{ mt: 3 }}
+              variant="contained"
+              size="large"
+              disabled={fName === "" || lName === ""}
+              onClick={editInfo}
+            >
+              Submit
+            </Button>
+          </Link>
         </Box>
       </Stack>
     </Stack>
