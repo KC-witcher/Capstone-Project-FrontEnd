@@ -48,7 +48,7 @@ function EditInfo() {
           <br />
         </Box>
         <Box>
-          <h2>Enter the Information You Would Like to Change</h2>
+          <h2>Please Enter your First and Last Name</h2>
           <br />
           <Stack sx={{ maxWidth: 350 }} spacing={3}>
             <TextField
