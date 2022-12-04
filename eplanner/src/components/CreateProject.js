@@ -670,8 +670,9 @@ function CreateProject() {
     setMotivation(event.target.value);
   };
 
-  //still not called on button click
   const createProject = () => {
+    distributeHours();
+
     axios
       .post(`http://localhost:3002/api/createProject/${id}`, {
         type: projectType,
