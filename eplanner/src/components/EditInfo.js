@@ -44,7 +44,7 @@ function EditInfo() {
             pr: 3,
           }}
         >
-          <h1 className="center">View My Projects</h1>
+          <h1 className="center">Edit User Information</h1>
           <br />
         </Box>
         <Box>
