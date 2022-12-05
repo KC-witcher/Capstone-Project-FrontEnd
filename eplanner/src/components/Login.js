@@ -41,17 +41,7 @@ function Login() {
         }
       });
   };
-
-  //whenever we refresh the page and a user is logged, we are going to display them
-  useEffect(() => {
-    axios.get("http://20.51.216.155:3002/api/login").then((response) => {
-      if (response.data.loggedIn === true) {
-        setLoginStatus(response.data.user[0].email);
-      }
-    });
-  }, []);
-
-  // const flushLocalStorage = () => console.log("function hit");
+  
   return (
     <Stack className="login-container" sx={{ p: 3, maxWidth: 350 }} spacing={3}>
       <item>
