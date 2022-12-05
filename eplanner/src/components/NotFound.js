@@ -9,7 +9,8 @@ import { useParams, Link } from "react-router-dom";
 function NotFound() {
     return (
         <Stack className="center" spacing={3} sx={{ height: "100vh" }}>
-            <h1>There was a problem with your user account. Please refresh the page and try logging in again.</h1>
+            <h1>There was a problem with your user account.</h1>
+            <h1>Please refresh the page and try logging in again.</h1>
             <h2>Click Below to Return to Login</h2>
             <Link to="/" style={{ textDecoration: "none" }}>
                 <Button sx={{ ml: 3 }} variant="contained">
