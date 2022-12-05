@@ -5,6 +5,7 @@ import CreateProject from "./CreateProject";
 import EditInfo from "./EditInfo";
 import ViewProjects from "./ViewProjects";
 import ScheduleGen from "./ScheduleGen";
+import NotFound from "./NotFound";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 // Deleted the Schedule Confirm component since I used a dialog (pop up) instead.
@@ -23,6 +24,7 @@ function App() {
         <Route exact path={`/create/${id}`} element={<CreateProject />} />
         <Route exact path={`/edit/${id}`} element={<EditInfo />} />
         <Route exact path={`/schedule/${id}`} element={<ScheduleGen />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
