@@ -673,6 +673,16 @@ function CreateProject() {
   const createProject = () => {
     distributeHours();
 
+    // Send int to backend to track number of people as int.
+    var numPeopleInt = 0;
+
+    // If empty, 1 person. If not, parse the int from the entered value.
+    if (numPeople === '') {
+      numPeopleInt = 1;
+    } else {
+      numPeopleInt = parseInt(numPeople);
+    }
+
     axios
       .post(`http://20.51.216.155:3002/api/createProject/${id}`, {
         type: projectType,
@@ -681,7 +691,7 @@ function CreateProject() {
         budget: budget,
         value: value,
         quality: quality,
-        numOfPeople: parseInt(numPeople),
+        numOfPeople: numPeopleInt,
         start: startDate,
         end: endDate,
         goal: goal,
