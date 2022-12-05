@@ -12,9 +12,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // Get variable stored in login page from storage.
 let id = localStorage.getItem("UserID");
 
-// Check to make sure it works.
-console.log("local storage id: ", id);
-
 function App() {
   return (
     <Router>

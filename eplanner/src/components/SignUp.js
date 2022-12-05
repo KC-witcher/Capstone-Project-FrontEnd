@@ -17,7 +17,7 @@ function SignUp() {
 
   const signUp = () => {
     axios
-      .post("http://localhost:3002/api/create", {
+      .post("http://20.51.216.155:3002/api/create", {
         email: email,
         password: password,
         fname: fName,

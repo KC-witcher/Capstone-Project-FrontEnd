@@ -21,7 +21,7 @@ function Login() {
     console.log("log in console", userID);
     // e.preventDefault();
     await axios
-      .post("http://localhost:3002/api/login", {
+      .post("http://20.51.216.155:3002/api/login", {
         email: email,
         password: password,
       })
@@ -44,7 +44,7 @@ function Login() {
 
   //whenever we refresh the page and a user is logged, we are going to display them
   useEffect(() => {
-    axios.get("http://localhost:3002/api/login").then((response) => {
+    axios.get("http://20.51.216.155:3002/api/login").then((response) => {
       if (response.data.loggedIn === true) {
         setLoginStatus(response.data.user[0].email);
       }

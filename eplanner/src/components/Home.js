@@ -12,9 +12,7 @@ let id = localStorage.getItem("UserID");
 function Home() {
   const [fname, setFName] = useState("");
   const [lname, setLName] = useState("");
-  // let { id } = useParams();
-  console.log("storage id: ", id);
-  axios.get(`http://localhost:3002/api/getNames/${id}`).then((response) => {
+  axios.get(`http://20.51.216.155:3002/api/getNames/${id}`).then((response) => {
     console.log(response);
     if (response.data.success) {
       console.log(response.data);

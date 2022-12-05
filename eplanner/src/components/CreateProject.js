@@ -674,7 +674,7 @@ function CreateProject() {
     distributeHours();
 
     axios
-      .post(`http://localhost:3002/api/createProject/${id}`, {
+      .post(`http://20.51.216.155:3002/api/createProject/${id}`, {
         type: projectType,
         length: projectLength,
         priority: priority,
@@ -747,11 +747,12 @@ function CreateProject() {
   }
 
   /* Once we have Start Date and End Date, we can determine the number of weeks the project will be. */
-  var startDateTime = new Date(startDate);
-  var endDateTime = new Date(endDate);
-  time = endDateTime.getTime() - startDateTime.getTime();
+  var startDateTime = new Date(startDate.replace(/-/g, '\/'));
+  var endDateTime = new Date(endDate.replace(/-/g, '\/'));
+
+  time = endDateTime.getDate() - startDateTime.getDate();
   /* Amount of time between two given dates, rounded up, in weeks. */
-  time = Math.ceil(time / (1000 * 3600 * 24 * 7));
+  time = Math.floor(time / 7);
 
   // Total time it takes to complete project divided by available time in weeks, rounded up.
   var hoursPerWeekIdeal = Math.ceil(projectTime / time);
@@ -3025,16 +3026,17 @@ function CreateProject() {
   };
 
   /* Error Handling Block */
-  const today = new Date().getDate();
+  var today = new Date();
 
   // If chosen start date is before today, prompt user to choose a different start date.
-  const startDateError = today > startDateTime.getDate() + 1;
+  const startDateError = today >= startDateTime;
 
   // If chosen end date is before the start date, prompt user to choose a different end date.
   const endDateError = startDateTime.getTime() > endDateTime.getTime();
 
   // If chosen dates do not round up to the minimum amount of weeks required to complete the project, throw an error.
   const tooShortError = time < minCompletion;
+
 
   // Checks for empty fields, enables button if there are no errors.
   const disabler =

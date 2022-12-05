@@ -16,7 +16,7 @@ function ViewProjects() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3002/api/getProject/${userID}`)
+      .get(`http://20.51.216.155:3002/api/getProject/${userID}`)
       .then((response) => {
         setListOfProjects(response.data.result);
         // console.log(response.data.result);
@@ -30,7 +30,7 @@ function ViewProjects() {
     const projectID = event.currentTarget.value;
     axios
       //maybe `/api/deleteProject/${id}`
-      .post(`http://localhost:3002/api/deleteProject/${projectID}`)
+      .post(`http://20.51.216.155:3002/api/deleteProject/${projectID}`)
       .then((response) => {
         console.log("YOU GOT DELETED!", response);
         window.location.reload();

@@ -16,7 +16,7 @@ function EditInfo() {
 
   const editInfo = () => {
     axios
-      .put(`http://localhost:3002/api/update/${id}`, {
+      .put(`http://20.51.216.155:3002/api/update/${id}`, {
         fname: fName,
         lname: lName,
       })
