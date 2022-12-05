@@ -681,7 +681,7 @@ function CreateProject() {
         budget: budget,
         value: value,
         quality: quality,
-        numOfPeople: numPeople,
+        numOfPeople: parseInt(numPeople),
         start: startDate,
         end: endDate,
         goal: goal,
