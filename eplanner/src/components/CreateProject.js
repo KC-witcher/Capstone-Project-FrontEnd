@@ -760,9 +760,11 @@ function CreateProject() {
   var startDateTime = new Date(startDate.replace(/-/g, '\/'));
   var endDateTime = new Date(endDate.replace(/-/g, '\/'));
 
-  time = endDateTime.getDate() - startDateTime.getDate();
+  console.log("Difference between Start and End dates in weeks:\n" + ((endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60 * 24 * 7)));
+
+  time = ((endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60 * 24 * 7));
   /* Amount of time between two given dates, rounded up, in weeks. */
-  time = Math.floor(time / 7);
+  time = Math.floor(time);
 
   // Total time it takes to complete project divided by available time in weeks, rounded up.
   var hoursPerWeekIdeal = Math.ceil(projectTime / time);
